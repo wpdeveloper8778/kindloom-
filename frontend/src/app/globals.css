@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #fef4f0;
+  --color-brand-100: #fde8e0;
+  --color-brand-200: #fac5b0;
+  --color-brand-300: #f5a080;
+  --color-brand-400: #ec7d55;
+  --color-brand-500: #D85A30;
+  --color-brand-600: #c04a28;
+  --color-brand-700: #a03a20;
+  --color-brand-800: #802c18;
+  --color-brand-900: #601e10;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-zinc-950 text-zinc-100 antialiased;
+  }
+  ::selection {
+    @apply bg-brand-500/30 text-white;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-linear-to-r from-brand-400 via-brand-500 to-brand-600 bg-clip-text text-transparent;
+  }
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  }
+  .glow {
+    box-shadow: 0 0 30px rgba(216, 90, 48, 0.2);
+  }
+  .glow-lg {
+    box-shadow: 0 0 60px rgba(216, 90, 48, 0.3);
+  }
+}
+
+html.light {
+  background-color: #FFFFFF;
+}
+
+html.light body {
+  background-color: #FFFFFF !important;
+  color: #111111 !important;
+}
+
+html.light .text-zinc-100 {
+  color: #111111 !important;
+}
+
+html.light .text-zinc-400 {
+  color: #555555 !important;
+}
+
+html.light .text-zinc-500 {
+  color: #666666 !important;
+}
+
+html.light .text-zinc-600 {
+  color: #888888 !important;
+}
+
+html.light .text-white {
+  color: #111111 !important;
+}
+
+html.light .bg-zinc-950 {
+  background-color: #FFFFFF !important;
+}
+
+html.light .bg-zinc-900 {
+  background-color: #F5F5F5 !important;
+}
+
+html.light .glass {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
