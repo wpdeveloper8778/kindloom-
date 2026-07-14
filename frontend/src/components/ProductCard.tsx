@@ -10,67 +10,63 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, index }: ProductCardProps) {
+  const badges: { label: string; className: string }[] = [];
+  if (product.bestseller) badges.push({ label: 'Best Seller', className: 'badge-best' });
+  if (product.featured) badges.push({ label: 'New', className: 'badge-new' });
+  const onSale = product.compareAtPrice > product.basePrice;
+  if (onSale) badges.push({ label: 'Sale', className: 'badge-sale' });
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      viewport={{ once: true, margin: '-30px' }}
+      transition={{ duration: 0.4, delay: index * 0.05 }}
     >
       <Link href={`/products/${product.slug}`} className="group block">
-        <div className="relative aspect-square rounded-2xl overflow-hidden bg-zinc-900 mb-4">
+        <div className="relative aspect-square rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 mb-3">
           <img
             src={product.images?.[0]}
             alt={product.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-          {product.bestseller && (
-            <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-brand-500 text-white text-xs font-semibold">
-              Bestseller
-            </span>
-          )}
-          <button className="absolute top-3 right-3 p-2 rounded-full bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-brand-500">
-            <Heart size={16} />
-          </button>
-          <div className="absolute bottom-3 left-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-            <span className="px-3 py-1.5 rounded-lg bg-white/10 backdrop-blur-md text-white text-xs font-medium">
-              Quick View
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
+
+          <div className="absolute top-2 left-2 flex flex-wrap gap-1.5">
+            {badges.map(b => (
+              <span key={b.label} className={b.className}>{b.label}</span>
+            ))}
+          </div>
+
+          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button className="p-2 rounded-full bg-white/90 text-zinc-600 hover:text-brand-500 hover:bg-white shadow-sm">
+              <Heart size={15} />
+            </button>
+          </div>
+
+          <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-white/90 via-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+            <span className="inline-flex items-center text-xs font-semibold text-brand-600 gap-1">
+              Personalize <Star size={12} />
             </span>
           </div>
         </div>
-        <div className="flex items-start justify-between">
-          <div>
-            <h3 className="text-sm font-medium text-white group-hover:text-brand-400 transition-colors">
-              {product.name}
-            </h3>
-            <p className="text-xs text-zinc-500 mt-0.5 capitalize">{product.category?.replace('-', ' ')}</p>
+        <div>
+          <p className="text-[11px] text-zinc-500 uppercase tracking-wider">{product.category?.replace('-', ' ')}</p>
+          <h3 className="text-sm font-semibold text-zinc-800 group-hover:text-brand-500 transition-colors mt-0.5">
+            {product.name}
+          </h3>
+          <div className="flex items-center gap-1.5 mt-1">
+            <Star size={11} className="text-brand-500 fill-brand-500" />
+            <span className="text-xs text-zinc-600">{product.rating || '4.5'}</span>
+            <span className="text-xs text-zinc-400">({product.reviewCount || '0'})</span>
           </div>
-          <div className="text-right">
-            <span className="text-sm font-semibold text-white">${product.basePrice}</span>
-            {product.colors && (
-              <div className="flex gap-1 mt-1 justify-end">
-                {product.colors.slice(0, 4).map((c: any) => (
-                  <span
-                    key={c.hex}
-                    className="w-3 h-3 rounded-full border border-white/10"
-                    style={{ backgroundColor: c.hex }}
-                  />
-                ))}
-                {product.colors.length > 4 && (
-                  <span className="text-[10px] text-zinc-500">+{product.colors.length - 4}</span>
-                )}
-              </div>
+          <div className="flex items-center gap-2 mt-2">
+            <span className="text-sm font-bold text-zinc-800">${product.basePrice}</span>
+            {onSale && (
+              <span className="text-xs text-zinc-400 line-through">${product.compareAtPrice}</span>
             )}
           </div>
         </div>
-        {product.rating > 0 && (
-          <div className="flex items-center gap-1.5 mt-2">
-            <Star size={12} className="text-brand-500 fill-brand-500" />
-            <span className="text-xs text-zinc-400">{product.rating}</span>
-            <span className="text-xs text-zinc-600">({product.reviewCount})</span>
-          </div>
-        )}
       </Link>
     </motion.div>
   );

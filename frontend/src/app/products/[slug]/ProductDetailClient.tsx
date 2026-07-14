@@ -45,7 +45,7 @@ export default function ProductDetailClient({ slug: propSlug }: { slug?: string 
   if (loading) {
     return (
       <div className="pt-24 min-h-screen flex items-center justify-center">
-        <div className="w-12 h-12 rounded-full border-2 border-brand-500 border-t-transparent animate-spin" />
+        <div className="w-10 h-10 rounded-full border-2 border-brand-500 border-t-transparent animate-spin" />
       </div>
     );
   }
@@ -53,8 +53,8 @@ export default function ProductDetailClient({ slug: propSlug }: { slug?: string 
   if (!product) {
     return (
       <div className="pt-24 min-h-screen flex flex-col items-center justify-center gap-4">
-        <p className="text-zinc-400">Product not found</p>
-        <Link href="/products" className="text-brand-400 hover:underline">Back to products</Link>
+        <p className="text-zinc-500">Product not found</p>
+        <Link href="/products" className="text-brand-500 hover:underline">Back to products</Link>
       </div>
     );
   }
@@ -86,11 +86,11 @@ export default function ProductDetailClient({ slug: propSlug }: { slug?: string 
   };
 
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-24 pb-16 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <button
           onClick={() => router.back()}
-          className="flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors mb-8"
+          className="flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-800 transition-colors mb-8"
         >
           <ChevronLeft size={16} />
           Back
@@ -101,14 +101,14 @@ export default function ProductDetailClient({ slug: propSlug }: { slug?: string 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
           >
-            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-zinc-900 mb-4">
+            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200 mb-4">
               <img
                 src={product.images?.[selectedImage]}
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
               {color && (
-                <div className="absolute bottom-4 left-4 px-3 py-1.5 rounded-lg glass text-xs text-zinc-300">
+                <div className="absolute bottom-4 left-4 px-3 py-1.5 rounded-lg bg-white/90 text-xs text-zinc-700 font-medium shadow-sm">
                   {color.name}
                 </div>
               )}
@@ -120,7 +120,7 @@ export default function ProductDetailClient({ slug: propSlug }: { slug?: string 
                     key={i}
                     onClick={() => setSelectedImage(i)}
                     className={`w-20 h-20 rounded-xl overflow-hidden border-2 transition-colors ${
-                      i === selectedImage ? 'border-brand-500' : 'border-transparent hover:border-white/20'
+                      i === selectedImage ? 'border-brand-500' : 'border-zinc-200 hover:border-zinc-300'
                     }`}
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />
@@ -134,12 +134,12 @@ export default function ProductDetailClient({ slug: propSlug }: { slug?: string 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
           >
-            <span className="text-xs text-brand-400 font-medium uppercase tracking-wider">
+            <span className="text-xs text-brand-500 font-medium uppercase tracking-wider">
               {product.category?.replace('-', ' ')}
             </span>
-            <h1 className="text-3xl sm:text-4xl font-bold text-white mt-1 mb-2">{product.name}</h1>
+            <h1 className="text-3xl font-bold text-zinc-800 mt-1 mb-2">{product.name}</h1>
             {product.tagline && (
-              <p className="text-lg text-zinc-400 italic mb-4">&ldquo;{product.tagline}&rdquo;</p>
+              <p className="text-base text-zinc-500 italic mb-4">&ldquo;{product.tagline}&rdquo;</p>
             )}
             {product.rating > 0 && (
               <div className="flex items-center gap-2 mb-4">
@@ -148,23 +148,23 @@ export default function ProductDetailClient({ slug: propSlug }: { slug?: string 
                     <Star
                       key={i}
                       size={16}
-                      className={i < Math.round(product.rating) ? 'text-brand-500 fill-brand-500' : 'text-zinc-600'}
+                      className={i < Math.round(product.rating) ? 'text-brand-500 fill-brand-500' : 'text-zinc-200'}
                     />
                   ))}
                 </div>
-                <span className="text-sm text-zinc-400">{product.rating} ({product.reviewCount} reviews)</span>
+                <span className="text-sm text-zinc-500">{product.rating} ({product.reviewCount} reviews)</span>
               </div>
             )}
 
-            <div className="text-3xl font-bold text-white mb-6">${price.toFixed(2)}</div>
+            <div className="text-3xl font-bold text-zinc-800 mb-6">${price.toFixed(2)}</div>
 
-            <p className="text-zinc-400 leading-relaxed mb-8">{product.description}</p>
+            <p className="text-zinc-600 leading-relaxed mb-8">{product.description}</p>
 
             <div className="space-y-6">
               {product.colors?.length > 0 && (
                 <div>
-                  <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3 block">
-                    Color: <span className="text-white">{selectedColor}</span>
+                  <label className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-3 block">
+                    Color: <span className="text-zinc-800">{selectedColor}</span>
                   </label>
                   <div className="flex flex-wrap gap-3">
                     {product.colors.map((c: any) => (
@@ -172,7 +172,7 @@ export default function ProductDetailClient({ slug: propSlug }: { slug?: string 
                         key={c.name}
                         onClick={() => setSelectedColor(c.name)}
                         className={`group relative w-10 h-10 rounded-full transition-all ${
-                          selectedColor === c.name ? 'scale-110 ring-2 ring-brand-500 ring-offset-2 ring-offset-zinc-950' : 'hover:scale-105'
+                          selectedColor === c.name ? 'scale-110 ring-2 ring-brand-500 ring-offset-2' : 'hover:scale-105'
                         }`}
                         style={{ backgroundColor: c.hex }}
                       >
@@ -189,8 +189,8 @@ export default function ProductDetailClient({ slug: propSlug }: { slug?: string 
 
               {product.sizes?.length > 0 && (
                 <div>
-                  <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3 block">
-                    Size: <span className="text-white">{selectedSize}</span>
+                  <label className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-3 block">
+                    Size: <span className="text-zinc-800">{selectedSize}</span>
                   </label>
                   <div className="flex flex-wrap gap-2">
                     {product.sizes.map((s: string) => (
@@ -200,7 +200,7 @@ export default function ProductDetailClient({ slug: propSlug }: { slug?: string 
                         className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
                           selectedSize === s
                             ? 'bg-brand-500 text-white'
-                            : 'glass text-zinc-400 hover:text-white hover:bg-white/10'
+                            : 'border border-zinc-200 text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50'
                         }`}
                       >
                         {s}
@@ -210,34 +210,34 @@ export default function ProductDetailClient({ slug: propSlug }: { slug?: string 
                 </div>
               )}
 
-              <div className="border-t border-white/5 pt-6">
-                <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3 block">
+              <div className="border-t border-zinc-200 pt-6">
+                <label className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-3 block">
                   Customize Your Design
                 </label>
                 <div className="space-y-4">
-                  <div className="flex items-center gap-3 glass rounded-xl px-4 py-3">
-                    <Type size={18} className="text-zinc-500 shrink-0" />
+                  <div className="flex items-center gap-3 border border-zinc-200 rounded-xl px-4 py-3">
+                    <Type size={18} className="text-zinc-400 shrink-0" />
                     <input
                       type="text"
                       value={customText}
                       onChange={e => setCustomText(e.target.value)}
                       placeholder="Add your text here..."
                       maxLength={50}
-                      className="flex-1 bg-transparent text-white placeholder-zinc-500 focus:outline-none text-sm"
+                      className="flex-1 bg-transparent text-zinc-800 placeholder-zinc-400 focus:outline-none text-sm"
                     />
                     {customText && (
-                      <button onClick={() => setCustomText('')} className="text-zinc-500 hover:text-white text-xs">
+                      <button onClick={() => setCustomText('')} className="text-zinc-400 hover:text-zinc-600 text-xs">
                         Clear
                       </button>
                     )}
                   </div>
-                  <label className="flex items-center gap-3 glass rounded-xl px-4 py-3 cursor-pointer hover:bg-white/[0.08] transition-colors">
+                  <label className="flex items-center gap-3 border border-zinc-200 rounded-xl px-4 py-3 cursor-pointer hover:bg-zinc-50 transition-colors">
                     {uploading ? (
-                      <Loader size={18} className="text-brand-400 animate-spin shrink-0" />
+                      <Loader size={18} className="text-brand-500 animate-spin shrink-0" />
                     ) : (
-                      <Upload size={18} className="text-zinc-500 shrink-0" />
+                      <Upload size={18} className="text-zinc-400 shrink-0" />
                     )}
-                    <span className="text-sm text-zinc-400 flex-1">
+                    <span className="text-sm text-zinc-500 flex-1">
                       {uploading ? 'Uploading...' : designUrl ? 'Design uploaded' : 'Upload your design'}
                     </span>
                     <input
@@ -264,17 +264,17 @@ export default function ProductDetailClient({ slug: propSlug }: { slug?: string 
               </div>
 
               <div className="flex items-center gap-4 pt-4">
-                <div className="flex items-center glass rounded-xl">
+                <div className="flex items-center border border-zinc-200 rounded-xl">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="p-3 text-zinc-400 hover:text-white transition-colors"
+                    className="p-3 text-zinc-400 hover:text-zinc-600 transition-colors"
                   >
                     <Minus size={16} />
                   </button>
-                  <span className="w-12 text-center text-white font-medium">{quantity}</span>
+                  <span className="w-12 text-center text-zinc-800 font-medium">{quantity}</span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="p-3 text-zinc-400 hover:text-white transition-colors"
+                    className="p-3 text-zinc-400 hover:text-zinc-600 transition-colors"
                   >
                     <Plus size={16} />
                   </button>
@@ -282,7 +282,7 @@ export default function ProductDetailClient({ slug: propSlug }: { slug?: string 
                 <motion.button
                   whileTap={{ scale: 0.97 }}
                   onClick={handleAddToCart}
-                  className="flex-1 flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-linear-to-r from-brand-500 to-brand-600 text-white font-semibold hover:from-brand-600 hover:to-brand-700 transition-all glow hover:glow-lg"
+                  className="flex-1 flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-brand-500 text-white font-semibold hover:bg-brand-600 transition-all"
                 >
                   <AnimatePresence mode="wait">
                     {addedToCart ? (
@@ -310,11 +310,11 @@ export default function ProductDetailClient({ slug: propSlug }: { slug?: string 
             </div>
 
             {product.features?.length > 0 && (
-              <div className="mt-8 pt-8 border-t border-white/5">
-                <h4 className="text-sm font-semibold text-white mb-4">Product Features</h4>
+              <div className="mt-8 pt-8 border-t border-zinc-200">
+                <h4 className="text-sm font-semibold text-zinc-800 mb-4">Product Features</h4>
                 <ul className="grid grid-cols-2 gap-2">
                   {product.features.map((f: string) => (
-                    <li key={f} className="flex items-center gap-2 text-sm text-zinc-400">
+                    <li key={f} className="flex items-center gap-2 text-sm text-zinc-600">
                       <Check size={14} className="text-brand-500 shrink-0" />
                       {f}
                     </li>
@@ -329,7 +329,7 @@ export default function ProductDetailClient({ slug: propSlug }: { slug?: string 
                   <Link
                     key={tag}
                     href={`/products?search=${tag}`}
-                    className="px-3 py-1 rounded-full glass text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+                    className="px-3 py-1 rounded-full bg-zinc-100 text-xs text-zinc-600 hover:bg-zinc-200 transition-colors"
                   >
                     #{tag}
                   </Link>

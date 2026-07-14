@@ -11,7 +11,7 @@
   "dependencies": {
     "@paypal/react-paypal-js": "^10.1.2",
     "framer-motion": "12.40.0",
-    "lucide-react": "^1.21.0",
+    "lucide-react": "^0.468.0",
     "motion-dom": "12.40.0",
     "motion-utils": "12.39.0",
     "next": "16.2.9",

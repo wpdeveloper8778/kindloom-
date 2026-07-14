@@ -1,77 +1,107 @@
+import { Mail, Phone, MapPin } from 'lucide-react';
 import Link from 'next/link';
 
-const footerLinks = [
-  { label: 'T-Shirts', href: '/products?category=t-shirts' },
-  { label: 'Hoodies', href: '/products?category=hoodies' },
-  { label: 'Caps', href: '/products?category=caps' },
-  { label: 'Wall Art', href: '/products?category=wall-art' },
-  { label: 'Mugs', href: '/products?category=mugs' },
-  { label: 'All Products', href: '/products' },
-];
-
-const supportLinks = [
-  { label: 'Shipping Info', href: '#' },
-  { label: 'Returns', href: '#' },
-  { label: 'Size Guide', href: '#' },
-  { label: 'Contact Us', href: '#' },
-  { label: 'FAQ', href: '#' },
-];
+const footerLinks = {
+  shop: [
+    { label: 'T-Shirts', href: '/products?category=t-shirts' },
+    { label: 'Hoodies', href: '/products?category=hoodies' },
+    { label: 'Caps', href: '/products?category=caps' },
+    { label: 'Wall Art', href: '/products?category=wall-art' },
+    { label: 'Mugs', href: '/products?category=mugs' },
+    { label: 'Phone Cases', href: '/products?category=phone-cases' },
+  ],
+  support: [
+    { label: 'Contact Us', href: '#' },
+    { label: 'Shipping Info', href: '#' },
+    { label: 'Returns & Exchanges', href: '#' },
+    { label: 'Size Guide', href: '#' },
+    { label: 'FAQ', href: '#' },
+  ],
+  company: [
+    { label: 'About Us', href: '#' },
+    { label: 'Careers', href: '#' },
+    { label: 'Privacy Policy', href: '#' },
+    { label: 'Terms of Service', href: '#' },
+  ],
+};
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5 bg-zinc-950/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="block mb-4">
-              <img src="/kindloom_logo.svg" alt="Kindloom" className="h-8 w-auto" />
-            </Link>
-            <p className="text-sm text-zinc-500 leading-relaxed max-w-xs">
-              Premium print-on-demand apparel and accessories. Wear your story, share your warmth.
+    <footer className="bg-zinc-900 text-zinc-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8">
+          <div className="lg:col-span-2">
+            <img src="/kindloom_logo.svg" alt="Kindloom" className="h-6 w-auto mb-4 brightness-0 invert" />
+            <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+              Premium print-on-demand custom apparel and accessories. Your design, our quality — made just for you.
             </p>
+            <div className="space-y-2 text-sm">
+              <div className="flex items-center gap-2">
+                <Mail size={14} className="text-zinc-500" />
+                <span>hello@kindloom.com</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Phone size={14} className="text-zinc-500" />
+                <span>+1 (555) 123-4567</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin size={14} className="text-zinc-500" />
+                <span>New York, NY</span>
+              </div>
+            </div>
           </div>
+
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4">Products</h4>
+            <h4 className="text-white font-semibold text-sm mb-3">Shop</h4>
             <ul className="space-y-2">
-              {footerLinks.map(link => (
+              {footerLinks.shop.map(link => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-sm text-zinc-500 hover:text-brand-400 transition-colors">
+                  <Link href={link.href} className="text-sm text-zinc-400 hover:text-white transition-colors">
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
+
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4">Support</h4>
+            <h4 className="text-white font-semibold text-sm mb-3">Support</h4>
             <ul className="space-y-2">
-              {supportLinks.map(link => (
+              {footerLinks.support.map(link => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-sm text-zinc-500 hover:text-brand-400 transition-colors">
+                  <Link href={link.href} className="text-sm text-zinc-400 hover:text-white transition-colors">
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
+
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4">Connect</h4>
+            <h4 className="text-white font-semibold text-sm mb-3">Company</h4>
             <ul className="space-y-2">
-              {['Instagram', 'Twitter', 'Facebook', 'Pinterest'].map(social => (
-                <li key={social}>
-                  <Link href="#" className="text-sm text-zinc-500 hover:text-brand-400 transition-colors">
-                    {social}
+              {footerLinks.company.map(link => (
+                <li key={link.label}>
+                  <Link href={link.href} className="text-sm text-zinc-400 hover:text-white transition-colors">
+                    {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
         </div>
-        <div className="mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-zinc-600">&copy; {new Date().getFullYear()} Kindloom. All rights reserved.</p>
-          <div className="flex gap-6">
-            <Link href="#" className="text-xs text-zinc-600 hover:text-zinc-400">Privacy Policy</Link>
-            <Link href="#" className="text-xs text-zinc-600 hover:text-zinc-400">Terms of Service</Link>
+
+        <div className="mt-10 pt-8 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-zinc-500">
+            &copy; {new Date().getFullYear()} Kindloom. All rights reserved.
+          </p>
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-zinc-500">We accept</span>
+            {['visa', 'mastercard', 'amex', 'paypal'].map(pm => (
+              <span key={pm} className="px-2.5 py-1 rounded bg-zinc-800 text-[10px] font-semibold text-zinc-400 uppercase tracking-wider">
+                {pm}
+              </span>
+            ))}
           </div>
         </div>
       </div>

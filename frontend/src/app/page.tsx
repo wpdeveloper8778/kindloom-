@@ -6,6 +6,8 @@ import HeroSection from '@/components/HeroSection';
 import TrustBadges from '@/components/TrustBadges';
 import FeaturedProducts from '@/components/FeaturedProducts';
 import CategoryGrid from '@/components/CategoryGrid';
+import HowItWorks from '@/components/HowItWorks';
+import Testimonials from '@/components/Testimonials';
 import NewsletterSection from '@/components/NewsletterSection';
 
 export default function Home() {
@@ -32,6 +34,8 @@ export default function Home() {
       <TrustBadges />
       <FeaturedProducts products={products} loading={loading} />
       <CategoryGrid />
+      <HowItWorks />
+      <Testimonials />
       <NewsletterSection />
     </>
   );

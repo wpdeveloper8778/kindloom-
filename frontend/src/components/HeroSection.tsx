@@ -2,95 +2,102 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Sparkles } from 'lucide-react';
-
-const floatingShapes = [
-  { size: 60, x: '10%', y: '20%', duration: 6, delay: 0 },
-  { size: 40, x: '85%', y: '30%', duration: 8, delay: 1 },
-  { size: 80, x: '70%', y: '70%', duration: 7, delay: 2 },
-  { size: 30, x: '20%', y: '75%', duration: 9, delay: 0.5 },
-];
+import { ArrowRight, Truck, Palette, ShieldCheck } from 'lucide-react';
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-16">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-900/20 via-zinc-950 to-zinc-950" />
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMSIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
-
-      {floatingShapes.map((shape, i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full bg-brand-500/10 blur-xl"
-          style={{ width: shape.size, height: shape.size, left: shape.x, top: shape.y }}
-          animate={{ y: [0, -30, 0], scale: [1, 1.1, 1] }}
-          transition={{ duration: shape.duration, repeat: Infinity, ease: 'easeInOut', delay: shape.delay }}
-        />
-      ))}
-
-      <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-brand-300 mb-8"
-        >
-          <Sparkles size={14} />
-          Premium Print on Demand
-        </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-none mb-6"
-        >
-          <span className="text-white">Your Design.</span>
-          <br />
-          <span className="text-gradient">Our Quality.</span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.4 }}
-          className="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed"
-        >
-          Premium custom apparel and accessories — printed on demand with 
-          eco-friendly inks and delivered to your doorstep.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <Link
-            href="/products"
-            className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-linear-to-r from-brand-500 to-brand-600 text-white font-semibold text-lg hover:from-brand-600 hover:to-brand-700 transition-all glow hover:glow-lg"
+    <section className="pt-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+        <div className="grid lg:grid-cols-3 gap-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-2 relative overflow-hidden rounded-2xl bg-linear-to-br from-brand-500 to-brand-700 p-8 sm:p-12 lg:p-16 text-white"
           >
-            Start Designing
-            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-          </Link>
-          <Link
-            href="/products?category=hoodies"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl glass text-zinc-300 font-semibold text-lg hover:bg-white/10 transition-all"
+            <div className="relative z-10 max-w-xl">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold mb-4">
+                <Palette size={12} /> Print on Demand
+              </span>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4">
+                Your Design.<br />Our Quality.
+              </h1>
+              <p className="text-white/80 text-base sm:text-lg mb-6 leading-relaxed">
+                Premium custom apparel and accessories. Upload your artwork or add text — we print on demand with eco-friendly inks.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link
+                  href="/products"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white text-brand-600 font-semibold hover:bg-zinc-100 transition-all"
+                >
+                  Start Designing <ArrowRight size={16} />
+                </Link>
+                <Link
+                  href="/products?category=hoodies"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white/10 text-white font-semibold hover:bg-white/20 transition-all"
+                >
+                  Shop Hoodies
+                </Link>
+              </div>
+            </div>
+            <div className="absolute -bottom-6 -right-6 w-48 h-48 sm:w-64 sm:h-64 rounded-full bg-white/5" />
+            <div className="absolute -bottom-12 -right-12 w-32 h-32 rounded-full bg-white/5" />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-1 gap-4"
           >
-            Shop Hoodies
-          </Link>
-        </motion.div>
+            <Link href="/products?category=t-shirts" className="group relative overflow-hidden rounded-2xl bg-zinc-50 p-6 hover:bg-zinc-100 transition-colors border border-zinc-200">
+              <p className="text-xs text-zinc-500 font-medium uppercase tracking-wider">🔥 Extra Sale</p>
+              <p className="text-lg font-bold text-zinc-800 mt-1">30% off</p>
+              <p className="text-xs text-zinc-500 mt-1">T-Shirts & Hoodies</p>
+              <span className="inline-flex items-center gap-1 text-xs text-brand-500 font-medium mt-3 group-hover:gap-2 transition-all">
+                Shop now <ArrowRight size={12} />
+              </span>
+            </Link>
+            <Link href="/products?category=caps" className="group relative overflow-hidden rounded-2xl bg-zinc-50 p-6 hover:bg-zinc-100 transition-colors border border-zinc-200">
+              <p className="text-xs text-zinc-500 font-medium uppercase tracking-wider">🚚 Free</p>
+              <p className="text-lg font-bold text-zinc-800 mt-1">Delivery</p>
+              <p className="text-xs text-zinc-500 mt-1">On orders over $50</p>
+              <span className="inline-flex items-center gap-1 text-xs text-brand-500 font-medium mt-3 group-hover:gap-2 transition-all">
+                Shop now <ArrowRight size={12} />
+              </span>
+            </Link>
+            <Link href="/products?category=wall-art" className="group relative overflow-hidden rounded-2xl bg-zinc-50 p-6 hover:bg-zinc-100 transition-colors border border-zinc-200">
+              <p className="text-xs text-zinc-500 font-medium uppercase tracking-wider">🛡️ Custom</p>
+              <p className="text-lg font-bold text-zinc-800 mt-1">Wall Art</p>
+              <p className="text-xs text-zinc-500 mt-1">Upload your design</p>
+              <span className="inline-flex items-center gap-1 text-xs text-brand-500 font-medium mt-3 group-hover:gap-2 transition-all">
+                Get it now <ArrowRight size={12} />
+              </span>
+            </Link>
+          </motion.div>
+        </div>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="mt-16 flex items-center justify-center gap-8 sm:gap-16 text-sm text-zinc-600"
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4"
         >
-          {['Free Shipping over $50', 'Eco-Friendly Inks', 'Satisfaction Guaranteed', 'Made to Order'].map((text) => (
-            <span key={text} className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
-              {text}
-            </span>
+          {[
+            { icon: Palette, label: 'Custom Designs', desc: 'Upload your artwork' },
+            { icon: Truck, label: 'Free Shipping', desc: 'On orders over $50' },
+            { icon: ShieldCheck, label: 'Quality Guarantee', desc: '30-day guarantee' },
+            { icon: ShieldCheck, label: 'Eco-Friendly', desc: 'Sustainable materials' },
+          ].map((item, i) => (
+            <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+              <div className="w-9 h-9 rounded-lg bg-brand-50 flex items-center justify-center shrink-0">
+                <item.icon size={16} className="text-brand-500" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-xs font-semibold text-zinc-700">{item.label}</p>
+                <p className="text-[10px] text-zinc-500">{item.desc}</p>
+              </div>
+            </div>
           ))}
         </motion.div>
       </div>
