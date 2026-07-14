@@ -1,7 +1,7 @@
 const isBrowser = typeof window !== 'undefined';
-const API_BASE = isBrowser && window.location.hostname !== 'localhost'
-  ? '/api'
-  : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api');
+const DEV_API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const PROD_API = 'https://kindloom-api.onrender.com/api';
+const API_BASE = isBrowser && window.location.hostname === 'localhost' ? DEV_API : PROD_API;
 
 async function fetchAPI(endpoint: string, options?: RequestInit) {
   const res = await fetch(`${API_BASE}${endpoint}`, {
