@@ -2,3 +2,11 @@
   base = "frontend"
   command = "npm run build"
   publish = "out"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://kindloom-api.onrender.com/api/:splat"
+  status = 200
