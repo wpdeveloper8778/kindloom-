@@ -16,6 +16,5 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "http://localhost:5000/api/:splat"
+  to = "https://kindloom-api.onrender.com/api/:splat"
   status = 200
-  # ⚠ Deploy backend first, then change the URL above to your live backend URL
