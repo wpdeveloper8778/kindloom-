@@ -1,5 +1,5 @@
 1:"$Sreact.fragment"
-2:I[1309,["/kindloom-/_next/static/chunks/3z34kg-2-gjmm.js","/kindloom-/_next/static/chunks/1ue4rynh-cexd.js"],"default"]
-3:I[63086,["/kindloom-/_next/static/chunks/3z34kg-2-gjmm.js","/kindloom-/_next/static/chunks/1ue4rynh-cexd.js"],"default"]
+2:I[11358,["/kindloom-/_next/static/chunks/0b64-hlo58997.js","/kindloom-/_next/static/chunks/31j3quh8l9yiw.js"],"default"]
+3:I[67729,["/kindloom-/_next/static/chunks/0b64-hlo58997.js","/kindloom-/_next/static/chunks/31j3quh8l9yiw.js"],"default"]
 4:[]
-0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"hXjGXL002VHRxQn9Wz5me"}
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"xPMGRsQcc6EzHWUhTRDbJ"}
