@@ -1,9 +1,6 @@
 1:"$Sreact.fragment"
-2:I[95412,["/_next/static/chunks/1fou9pnw_osvv.js","/_next/static/chunks/45bdp-nilsart.js"],"ClientPageRoot"]
-3:I[37170,["/_next/static/chunks/1fou9pnw_osvv.js","/_next/static/chunks/45bdp-nilsart.js","/_next/static/chunks/3k3lu00-ga-bb.js","/_next/static/chunks/2d22d8wlm_y52.js"],"default"]
-6:I[84456,["/_next/static/chunks/1fou9pnw_osvv.js","/_next/static/chunks/45bdp-nilsart.js"],"OutletBoundary"]
-7:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/_next/static/chunks/3k3lu00-ga-bb.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/2d22d8wlm_y52.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"4_YOjumU5EZIRmv5I8vH4"}
-4:{}
-5:"$0:rsc:props:children:0:props:serverProvidedParams:params"
-8:null
+2:"$Sreact.suspense"
+3:I[93292,["/kindloom-/_next/static/chunks/11xqsjwq6ksf1.js","/kindloom-/_next/static/chunks/14mrh2-p_w84d.js","/kindloom-/_next/static/chunks/3irwb22-7odws.js"],"default"]
+4:I[97367,["/kindloom-/_next/static/chunks/11xqsjwq6ksf1.js","/kindloom-/_next/static/chunks/14mrh2-p_w84d.js"],"OutletBoundary"]
+0:{"rsc":["$","$1","c",{"children":[["$","$2",null,{"fallback":["$","div",null,{"className":"max-w-7xl mx-auto px-4 py-8","children":["$","div",null,{"className":"grid grid-cols-2 md:grid-cols-4 gap-4","children":[["$","div","0",{"className":"bg-gray-100 rounded-xl aspect-square animate-pulse"}],["$","div","1",{"className":"bg-gray-100 rounded-xl aspect-square animate-pulse"}],["$","div","2",{"className":"bg-gray-100 rounded-xl aspect-square animate-pulse"}],["$","div","3",{"className":"bg-gray-100 rounded-xl aspect-square animate-pulse"}],["$","div","4",{"className":"bg-gray-100 rounded-xl aspect-square animate-pulse"}],["$","div","5",{"className":"bg-gray-100 rounded-xl aspect-square animate-pulse"}],["$","div","6",{"className":"bg-gray-100 rounded-xl aspect-square animate-pulse"}],["$","div","7",{"className":"bg-gray-100 rounded-xl aspect-square animate-pulse"}]]}]}],"children":["$","$L3",null,{}]}],[["$","script","script-0",{"src":"/kindloom-/_next/static/chunks/3irwb22-7odws.js","async":true}]],["$","$L4",null,{"children":["$","$2",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"J4_DSsHbVxgUu0nI5ROTb"}
+5:null
