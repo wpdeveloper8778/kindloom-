@@ -1,2 +1,2 @@
-:HL["/kindloom-/_next/static/chunks/25c1s9zil9fkr.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"bLjmVU2008PJnIOI3sQhT"}
+:HL["/kindloom-/_next/static/chunks/3b9kbmnoqzjh0.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"nhfyI6z81PghyLJmX61ec"}
