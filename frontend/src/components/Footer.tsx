@@ -1,5 +1,6 @@
 import { Mail, Phone, MapPin } from 'lucide-react';
 import Link from 'next/link';
+import { BASE_PATH } from '@/lib/base';
 
 const footerLinks = {
   shop: [
@@ -31,7 +32,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8">
           <div className="lg:col-span-2">
-            <img src="/kindloom_logo.svg" alt="Kindloom" className="h-6 w-auto mb-4 brightness-0 invert" />
+            <img src={`${BASE_PATH}/kindloom_logo.svg`} alt="Kindloom" className="h-6 w-auto mb-4 brightness-0 invert" />
             <p className="text-sm text-zinc-400 leading-relaxed mb-4">
               Premium print-on-demand custom apparel and accessories. Your design, our quality — made just for you.
             </p>

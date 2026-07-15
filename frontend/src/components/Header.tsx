@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { ShoppingBag, Menu, X, Search } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { BASE_PATH } from '@/lib/base';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -21,7 +22,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2 shrink-0">
-            <img src="/kindloom_logo.svg" alt="Kindloom" className="h-7 w-auto" />
+            <img src={`${BASE_PATH}/kindloom_logo.svg`} alt="Kindloom" className="h-7 w-auto" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
