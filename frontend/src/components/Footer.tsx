@@ -28,80 +28,53 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="bg-zinc-900 text-zinc-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8">
+    <footer className="bg-zinc-900 text-zinc-400">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
           <div className="lg:col-span-2">
-            <img src={`${BASE_PATH}/kindloom_logo.svg`} alt="Kindloom" className="h-6 w-auto mb-4 brightness-0 invert" />
-            <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+            <img src={`${BASE_PATH}/kindloom_logo.svg`} alt="Kindloom" className="h-7 w-auto mb-5 brightness-0 invert" />
+            <p className="text-sm text-zinc-500 leading-relaxed mb-6 max-w-sm">
               Premium print-on-demand custom apparel and accessories. Your design, our quality — made just for you.
             </p>
-            <div className="space-y-2 text-sm">
-              <div className="flex items-center gap-2">
-                <Mail size={14} className="text-zinc-500" />
+            <div className="space-y-2.5 text-sm">
+              <div className="flex items-center gap-2.5">
+                <Mail size={14} className="text-zinc-600 shrink-0" />
                 <span>hello@kindloom.com</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Phone size={14} className="text-zinc-500" />
+              <div className="flex items-center gap-2.5">
+                <Phone size={14} className="text-zinc-600 shrink-0" />
                 <span>+1 (555) 123-4567</span>
               </div>
-              <div className="flex items-center gap-2">
-                <MapPin size={14} className="text-zinc-500" />
-                <span>New York, NY</span>
+              <div className="flex items-center gap-2.5">
+                <MapPin size={14} className="text-zinc-600 shrink-0" />
+                <span>San Francisco, CA</span>
               </div>
             </div>
           </div>
 
-          <div>
-            <h4 className="text-white font-semibold text-sm mb-3">Shop</h4>
-            <ul className="space-y-2">
-              {footerLinks.shop.map(link => (
-                <li key={link.label}>
-                  <Link href={link.href} className="text-sm text-zinc-400 hover:text-white transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-white font-semibold text-sm mb-3">Support</h4>
-            <ul className="space-y-2">
-              {footerLinks.support.map(link => (
-                <li key={link.label}>
-                  <Link href={link.href} className="text-sm text-zinc-400 hover:text-white transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-white font-semibold text-sm mb-3">Company</h4>
-            <ul className="space-y-2">
-              {footerLinks.company.map(link => (
-                <li key={link.label}>
-                  <Link href={link.href} className="text-sm text-zinc-400 hover:text-white transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {Object.entries(footerLinks).map(([title, links]) => (
+            <div key={title}>
+              <h4 className="text-white text-sm font-semibold mb-4 capitalize">{title}</h4>
+              <ul className="space-y-2.5">
+                {links.map(link => (
+                  <li key={link.label}>
+                    <Link href={link.href} className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <div className="mt-10 pt-8 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-zinc-500">
-            &copy; {new Date().getFullYear()} Kindloom. All rights reserved.
-          </p>
+        <div className="border-t border-zinc-800 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-zinc-600">&copy; 2026 Kindloom. All rights reserved.</p>
           <div className="flex items-center gap-3">
-            <span className="text-xs text-zinc-500">We accept</span>
-            {['visa', 'mastercard', 'amex', 'paypal'].map(pm => (
-              <span key={pm} className="px-2.5 py-1 rounded bg-zinc-800 text-[10px] font-semibold text-zinc-400 uppercase tracking-wider">
+            {['visa', 'mastercard', 'paypal', 'amex'].map(pm => (
+              <div key={pm} className="px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-500 text-[10px] font-semibold uppercase tracking-wider">
                 {pm}
-              </span>
+              </div>
             ))}
           </div>
         </div>

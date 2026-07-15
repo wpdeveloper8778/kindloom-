@@ -23,12 +23,30 @@
   }
 }
 
-@layer utilities {
-  .text-gradient {
-    @apply bg-linear-to-r from-brand-500 to-brand-600 bg-clip-text text-transparent;
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-brand-500 text-white font-semibold hover:bg-brand-600 active:scale-[0.97] transition-all shadow-lg shadow-brand-500/20 hover:shadow-xl hover:shadow-brand-500/30;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-zinc-300 text-zinc-700 font-semibold hover:bg-zinc-50 hover:border-zinc-400 active:scale-[0.97] transition-all;
+  }
+  .btn-white {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white text-brand-600 font-semibold hover:bg-zinc-50 active:scale-[0.97] transition-all shadow-lg shadow-black/5;
+  }
+  .card {
+    @apply rounded-2xl bg-white border border-zinc-200/70 shadow-sm hover:shadow-md transition-all;
+  }
+  .card-hover {
+    @apply rounded-2xl bg-white border border-zinc-200/70 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all;
+  }
+  .section-title {
+    @apply text-3xl sm:text-4xl font-bold text-zinc-900;
+  }
+  .section-subtitle {
+    @apply text-zinc-500 mt-2 max-w-xl;
   }
   .badge-new {
-    @apply px-2.5 py-0.5 rounded-full bg-green-500 text-white text-[10px] font-semibold uppercase tracking-wider;
+    @apply px-2.5 py-0.5 rounded-full bg-emerald-500 text-white text-[10px] font-semibold uppercase tracking-wider;
   }
   .badge-sale {
     @apply px-2.5 py-0.5 rounded-full bg-red-500 text-white text-[10px] font-semibold uppercase tracking-wider;

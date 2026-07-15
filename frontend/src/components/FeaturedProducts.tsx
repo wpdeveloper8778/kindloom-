@@ -12,20 +12,19 @@ interface FeaturedProductsProps {
 
 export default function FeaturedProducts({ products, loading }: FeaturedProductsProps) {
   return (
-    <section className="py-16">
+    <section className="py-16 sm:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex items-end justify-between mb-8"
+          className="flex items-end justify-between mb-10"
         >
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-zinc-800">Featured Products</h2>
-            <p className="text-zinc-500 mt-1">Our most popular designs, ready for your personal touch.</p>
+            <h2 className="section-title">Featured Products</h2>
+            <p className="section-subtitle">Our most popular designs, ready for your personal touch.</p>
           </div>
-          <Link
-            href="/products"
+          <Link href="/products"
             className="hidden sm:flex items-center gap-2 text-sm text-brand-500 hover:text-brand-600 transition-colors font-medium"
           >
             View All <ArrowRight size={15} />
@@ -35,7 +34,7 @@ export default function FeaturedProducts({ products, loading }: FeaturedProducts
         {loading ? (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="aspect-square rounded-xl bg-zinc-100 animate-pulse" />
+              <div key={i} className="aspect-square rounded-2xl bg-zinc-100 animate-pulse" />
             ))}
           </div>
         ) : products.length > 0 ? (
@@ -45,13 +44,13 @@ export default function FeaturedProducts({ products, loading }: FeaturedProducts
             ))}
           </div>
         ) : (
-          <div className="text-center py-12">
+          <div className="text-center py-16">
             <p className="text-zinc-400">No featured products available yet.</p>
           </div>
         )}
 
         <div className="mt-10 text-center sm:hidden">
-          <Link href="/products" className="inline-flex items-center gap-2 text-sm font-medium text-brand-500">
+          <Link href="/products" className="btn-primary text-sm">
             View All Products <ArrowRight size={15} />
           </Link>
         </div>
