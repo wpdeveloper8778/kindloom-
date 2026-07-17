@@ -42,7 +42,7 @@ export default function ProductDetailClient() {
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
   const [customizing, setCustomizing] = useState(false);
-  const [customization, setCustomization] = useState({ color: 'White', size: 'M', designImage: null as string | null });
+  const [customization, setCustomization] = useState({ color: 'White', size: 'M', designSnapshot: null as string | null });
 
   useEffect(() => {
     async function load() {
@@ -81,7 +81,7 @@ export default function ProductDetailClient() {
       image: productImage,
       color: customization.color,
       size: customization.size,
-      designImage: customization.designImage || undefined,
+      designSnapshot: customization.designSnapshot || undefined,
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);

@@ -11,7 +11,7 @@ interface CartItem {
   image: string;
   color?: string;
   size?: string;
-  designImage?: string;
+  designSnapshot?: string;
 }
 
 interface CartContextType {

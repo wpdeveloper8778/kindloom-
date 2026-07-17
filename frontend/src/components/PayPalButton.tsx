@@ -38,7 +38,7 @@ export default function PayPalCheckoutButton({
       size: i.size,
       color: i.color,
       image: i.image,
-      designImage: i.designImage,
+      designSnapshot: i.designSnapshot,
     })),
     shippingAddress: form,
     subtotal,
