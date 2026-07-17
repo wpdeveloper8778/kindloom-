@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+
 import ProductCard from './ProductCard';
 
 interface FeaturedProductsProps {
@@ -27,7 +27,7 @@ export default function FeaturedProducts({ products, loading }: FeaturedProducts
           <Link href="/products"
             className="hidden sm:flex items-center gap-2 text-sm text-brand-500 hover:text-brand-600 transition-colors font-medium"
           >
-            View All <ArrowRight size={15} />
+            View All <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </Link>
         </motion.div>
 
@@ -40,7 +40,7 @@ export default function FeaturedProducts({ products, loading }: FeaturedProducts
         ) : products.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
             {products.map((product, i) => (
-              <ProductCard key={product._id} product={product} index={i} />
+              <ProductCard key={product._id} product={product} />
             ))}
           </div>
         ) : (
@@ -51,7 +51,7 @@ export default function FeaturedProducts({ products, loading }: FeaturedProducts
 
         <div className="mt-10 text-center sm:hidden">
           <Link href="/products" className="btn-primary text-sm">
-            View All Products <ArrowRight size={15} />
+            View All Products <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </Link>
         </div>
       </div>

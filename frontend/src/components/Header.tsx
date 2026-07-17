@@ -1,16 +1,17 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
-import { ShoppingBag, Menu, X, Search } from 'lucide-react';
+
+import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
-import { BASE_PATH } from '@/lib/base';
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/products', label: 'Shop' },
-  { href: '/products?category=t-shirts', label: 'T-Shirts' },
-  { href: '/products?category=hoodies', label: 'Hoodies' },
+  { href: '/products', label: 'T-Shirt Designer' },
+  { href: '/products?category=poster', label: 'Poster Design' },
+  { href: '/about', label: 'Printing Company' },
+  { href: '/products?category=gifts', label: 'Personalized Gifts' },
+  { href: '/contact', label: 'Contacts' },
 ];
 
 export default function Header() {
@@ -18,58 +19,67 @@ export default function Header() {
   const { totalItems } = useCart();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-lg border-b border-zinc-200/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <img src={`${BASE_PATH}/kindloom_logo.svg`} alt="Kindloom" className="h-7 w-auto" />
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex items-center justify-between h-[72px]">
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="w-9 h-9 bg-brand-500 rounded-lg flex items-center justify-center text-white font-bold text-lg transition-transform group-hover:scale-105">
+              K
+            </div>
+            <span className="text-xl font-bold tracking-tight text-dark">Kindloom</span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map(link => (
-              <Link key={link.href} href={link.href}
-                className="text-sm text-zinc-600 hover:text-zinc-900 transition-colors font-medium"
+          <nav className="hidden lg:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="px-3 py-2 text-sm text-gray-600 hover:text-brand-500 rounded-lg hover:bg-brand-50 transition-colors"
               >
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          <div className="flex items-center gap-3">
-            <Link href="/search" className="hidden sm:flex p-2 text-zinc-500 hover:text-zinc-800 transition-colors">
-              <Search size={19} />
-            </Link>
-            <Link href="/cart" className="relative p-2 text-zinc-500 hover:text-zinc-800 transition-colors">
-              <ShoppingBag size={19} />
+          <div className="flex items-center gap-2">
+            <Link
+              href="/cart"
+              className="relative p-2.5 hover:bg-gray-100 rounded-full transition-colors"
+            >
+              <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-700"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
               {totalItems > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 rounded-full bg-brand-500 text-white text-[9px] font-bold flex items-center justify-center">
-                  {totalItems > 9 ? '9+' : totalItems}
+                <span className="absolute -top-0.5 -right-0.5 bg-brand-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                  {totalItems}
                 </span>
               )}
             </Link>
-            <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-2 text-zinc-500 hover:text-zinc-800">
-              {menuOpen ? <X size={20} /> : <Menu size={20} />}
+
+            <button
+              className="lg:hidden p-2.5 hover:bg-gray-100 rounded-full transition-colors"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              {menuOpen ? <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-700"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> : <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-700"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>}
             </button>
           </div>
         </div>
+      </div>
 
-        {menuOpen && (
-          <div className="md:hidden border-t border-zinc-200/50 py-4 space-y-1">
-            {navLinks.map(link => (
-              <Link key={link.href} href={link.href} onClick={() => setMenuOpen(false)}
-                className="block px-3 py-2.5 rounded-xl text-sm text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 font-medium transition-colors"
+      {menuOpen && (
+        <div className="lg:hidden bg-white border-t border-gray-200 shadow-lg">
+          <nav className="flex flex-col px-4 py-4 gap-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="px-3 py-2.5 text-sm text-gray-600 hover:text-brand-500 rounded-lg hover:bg-brand-50 transition-colors"
+                onClick={() => setMenuOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
-            <Link href="/search" onClick={() => setMenuOpen(false)}
-              className="block px-3 py-2.5 rounded-xl text-sm text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 font-medium transition-colors"
-            >
-              Search
-            </Link>
-          </div>
-        )}
-      </div>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

@@ -1,41 +1,24 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { api } from '@/lib/api';
 import HeroSection from '@/components/HeroSection';
-import TrustBadges from '@/components/TrustBadges';
-import FeaturedProducts from '@/components/FeaturedProducts';
-import CategoryGrid from '@/components/CategoryGrid';
-import HowItWorks from '@/components/HowItWorks';
-import Testimonials from '@/components/Testimonials';
+import OffersSection from '@/components/OffersSection';
+import WelcomeSection from '@/components/WelcomeSection';
+import ProductShowcase from '@/components/ProductShowcase';
+import TestimonialsSection from '@/components/TestimonialsSection';
+import CustomProjectsSection from '@/components/CustomProjectsSection';
+import BrandLogos from '@/components/BrandLogos';
+import BlogHighlights from '@/components/BlogHighlights';
 import NewsletterSection from '@/components/NewsletterSection';
 
 export default function Home() {
-  const [products, setProducts] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function load() {
-      try {
-        const data = await api.products.featured();
-        setProducts(data);
-      } catch (e) {
-        console.error('Failed to load products', e);
-      } finally {
-        setLoading(false);
-      }
-    }
-    load();
-  }, []);
-
   return (
     <>
       <HeroSection />
-      <TrustBadges />
-      <FeaturedProducts products={products} loading={loading} />
-      <CategoryGrid />
-      <HowItWorks />
-      <Testimonials />
+      <OffersSection />
+      <WelcomeSection />
+      <ProductShowcase />
+      <TestimonialsSection />
+      <CustomProjectsSection />
+      <BrandLogos />
+      <BlogHighlights />
       <NewsletterSection />
     </>
   );

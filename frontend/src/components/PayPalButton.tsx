@@ -32,13 +32,13 @@ export default function PayPalCheckoutButton({
   const orderData = {
     items: items.map(i => ({
       product: i.productId,
-      name: i.name,
+      name: i.title,
       price: i.price,
       quantity: i.quantity,
       size: i.size,
       color: i.color,
       image: i.image,
-      customization: i.customization,
+      designImage: i.designImage,
     })),
     shippingAddress: form,
     subtotal,

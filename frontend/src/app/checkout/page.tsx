@@ -2,281 +2,160 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { Check, CreditCard, Wallet } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { api } from '@/lib/api';
-import PayPalCheckoutButton from '@/components/PayPalButton';
-import Link from 'next/link';
 
-type PaymentMethod = 'cod' | 'paypal';
 
 export default function CheckoutPage() {
-  const router = useRouter();
   const { items, subtotal, clearCart } = useCart();
+  const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cod');
-  const [paypalError, setPaypalError] = useState('');
-  const [form, setForm] = useState({
-    name: '', email: '', phone: '', street: '', city: '', state: '', zip: '', country: 'US',
-  });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', street: '', city: '', zip: '' });
 
-  const shipping = subtotal >= 50 ? 0 : 5.99;
+  const shipping = subtotal >= 50 ? 0 : 5;
   const total = subtotal + shipping;
 
-  const handleCODSubmit = async (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
     try {
       await api.orders.create({
-        items: items.map(i => ({
+        items: items.map((i) => ({
           product: i.productId,
-          name: i.name,
+          title: i.title,
           price: i.price,
           quantity: i.quantity,
-          size: i.size,
-          color: i.color,
           image: i.image,
-          customization: i.customization,
+          color: i.color,
+          size: i.size,
         })),
-        shippingAddress: form,
+        shippingAddress: {
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          street: form.street,
+          city: form.city,
+          zip: form.zip,
+          country: 'US',
+        },
+        paymentMethod: 'cod',
         subtotal,
         shipping,
+        tax: 0,
         total,
-        paymentMethod: 'cod',
       });
       clearCart();
       setDone(true);
-    } catch (err) {
-      console.error('Order failed', err);
+    } catch (e) {
+      console.error(e);
     } finally {
       setSubmitting(false);
     }
   };
 
-  const handlePayPalSuccess = () => setDone(true);
-  const handlePayPalError = (msg: string) => setPaypalError(msg);
-
   if (items.length === 0 && !done) {
     return (
-      <div className="pt-24 min-h-screen flex flex-col items-center justify-center gap-4">
-        <p className="text-zinc-500">Your cart is empty.</p>
-        <Link href="/products" className="text-brand-500 hover:underline">Start Shopping</Link>
+      <div className="max-w-3xl mx-auto px-4 py-16 text-center">
+        <p className="text-gray-500">Your cart is empty.</p>
       </div>
     );
   }
 
   if (done) {
     return (
-      <div className="pt-24 min-h-screen flex flex-col items-center justify-center gap-6">
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          className="w-20 h-20 rounded-full bg-green-500 flex items-center justify-center"
-        >
-          <Check size={32} className="text-white" />
-        </motion.div>
-        <h1 className="text-3xl font-bold text-zinc-800">Order Placed!</h1>
-        <p className="text-zinc-500">Your custom products are being printed. You&apos;ll receive a confirmation shortly.</p>
-        <Link
-          href="/products"
-          className="px-6 py-3 rounded-xl bg-brand-500 text-white font-semibold hover:bg-brand-600 transition-all"
-        >
+      <div className="max-w-3xl mx-auto px-4 py-16 text-center">
+        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg width={32} height={32} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-600"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h1 className="text-2xl font-bold text-dark mb-2">Order Placed!</h1>
+        <p className="text-gray-500 mb-6">Thank you for your order. We will confirm via email shortly.</p>
+        <button onClick={() => router.push('/products')} className="bg-brand-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-brand-600 transition-colors">
           Continue Shopping
-        </Link>
+        </button>
       </div>
     );
   }
 
-  const paypalClientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
-
   return (
-    <div className="pt-24 pb-16 min-h-screen">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-          <h1 className="text-3xl font-bold text-zinc-800">Checkout</h1>
-        </motion.div>
+    <div className="max-w-5xl mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold text-dark mb-8">Checkout</h1>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          <form onSubmit={handleCODSubmit} className="md:col-span-2 space-y-6">
-            <div className="border border-zinc-200 rounded-2xl p-6 bg-white space-y-4">
-              <h2 className="text-lg font-semibold text-zinc-800">Shipping Information</h2>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="sm:col-span-2">
-                  <label className="block text-xs text-zinc-500 mb-1.5">Full Name</label>
-                  <input
-                    required
-                    value={form.name}
-                    onChange={e => setForm({ ...form, name: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-zinc-800 placeholder-zinc-400 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-50 text-sm"
-                    placeholder="John Doe"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs text-zinc-500 mb-1.5">Email</label>
-                  <input
-                    required
-                    type="email"
-                    value={form.email}
-                    onChange={e => setForm({ ...form, email: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-zinc-800 placeholder-zinc-400 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-50 text-sm"
-                    placeholder="john@example.com"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs text-zinc-500 mb-1.5">Phone</label>
-                  <input
-                    required
-                    type="tel"
-                    value={form.phone}
-                    onChange={e => setForm({ ...form, phone: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-zinc-800 placeholder-zinc-400 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-50 text-sm"
-                    placeholder="+1 234 567 890"
-                  />
-                </div>
-                <div className="sm:col-span-2">
-                  <label className="block text-xs text-zinc-500 mb-1.5">Street Address</label>
-                  <input
-                    required
-                    value={form.street}
-                    onChange={e => setForm({ ...form, street: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-zinc-800 placeholder-zinc-400 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-50 text-sm"
-                    placeholder="123 Main St"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs text-zinc-500 mb-1.5">City</label>
-                  <input
-                    required
-                    value={form.city}
-                    onChange={e => setForm({ ...form, city: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-zinc-800 placeholder-zinc-400 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-50 text-sm"
-                    placeholder="New York"
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs text-zinc-500 mb-1.5">State</label>
-                    <input
-                      value={form.state}
-                      onChange={e => setForm({ ...form, state: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-zinc-800 placeholder-zinc-400 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-50 text-sm"
-                      placeholder="NY"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs text-zinc-500 mb-1.5">ZIP</label>
-                    <input
-                      required
-                      value={form.zip}
-                      onChange={e => setForm({ ...form, zip: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 bg-white text-zinc-800 placeholder-zinc-400 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-50 text-sm"
-                      placeholder="10001"
-                    />
-                  </div>
-                </div>
-              </div>
+      <div className="grid md:grid-cols-5 gap-8">
+        <form onSubmit={handleSubmit} className="md:col-span-3 space-y-4">
+          <h2 className="font-semibold text-lg text-dark">Shipping Information</h2>
+          {[
+            { name: 'name', label: 'Full Name', type: 'text' },
+            { name: 'email', label: 'Email', type: 'email' },
+            { name: 'phone', label: 'Phone', type: 'tel' },
+            { name: 'street', label: 'Street Address', type: 'text' },
+            { name: 'city', label: 'City', type: 'text' },
+            { name: 'zip', label: 'ZIP Code', type: 'text' },
+          ].map((field) => (
+            <div key={field.name}>
+              <label className="text-sm font-medium text-gray-600 block mb-1">{field.label}</label>
+              <input
+                type={field.type}
+                name={field.name}
+                required
+                value={(form as any)[field.name]}
+                onChange={handleChange}
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:border-brand-500 focus:outline-none text-sm transition-colors"
+              />
             </div>
+          ))}
 
-            <div className="border border-zinc-200 rounded-2xl p-6 bg-white">
-              <h2 className="text-lg font-semibold text-zinc-800 mb-4 flex items-center gap-2">
-                <CreditCard size={18} className="text-brand-500" />
-                Payment Method
-              </h2>
-              <div className="space-y-3">
-                <label className={`flex items-center gap-3 p-4 rounded-xl cursor-pointer transition-colors border ${
-                  paymentMethod === 'cod' ? 'border-brand-500 bg-brand-50' : 'border-zinc-200 hover:bg-zinc-50'
-                }`}>
-                  <input
-                    type="radio"
-                    name="payment"
-                    checked={paymentMethod === 'cod'}
-                    onChange={() => setPaymentMethod('cod')}
-                    className="text-brand-500"
-                  />
-                  <Wallet size={18} className="text-zinc-400" />
-                  <span className="text-sm text-zinc-800">Cash on Delivery</span>
-                </label>
-                <label className={`flex items-center gap-3 p-4 rounded-xl cursor-pointer transition-colors border ${
-                  paymentMethod === 'paypal' ? 'border-brand-500 bg-brand-50' : 'border-zinc-200 hover:bg-zinc-50'
-                }`}>
-                  <input
-                    type="radio"
-                    name="payment"
-                    checked={paymentMethod === 'paypal'}
-                    onChange={() => setPaymentMethod('paypal')}
-                    className="text-brand-500"
-                  />
-                  <span className="text-xl font-bold italic text-[#0070BA]" style={{ fontFamily: 'Arial' }}>PayPal</span>
-                  <span className="text-xs text-zinc-500 ml-auto">Credit / Debit Card</span>
-                </label>
-              </div>
-
-              {paymentMethod === 'paypal' && (
-                <div className="mt-4">
-                  {paypalError && (
-                    <p className="text-red-500 text-sm mb-3">{paypalError}</p>
-                  )}
-                  {paypalClientId ? (
-                    <PayPalCheckoutButton
-                      form={form}
-                      subtotal={subtotal}
-                      shipping={shipping}
-                      total={total}
-                      onSuccess={handlePayPalSuccess}
-                      onError={handlePayPalError}
-                    />
-                  ) : (
-                    <div className="p-4 rounded-xl bg-yellow-50 border border-yellow-200 text-sm text-yellow-700">
-                      PayPal is not configured. Set <code className="text-yellow-600">NEXT_PUBLIC_PAYPAL_CLIENT_ID</code> in your environment.
-                    </div>
-                  )}
-                </div>
-              )}
+          <div className="pt-4">
+            <p className="text-sm text-gray-500 mb-2">Payment Method</p>
+            <div className="bg-brand-50 p-3 rounded-xl text-sm text-gray-600 flex items-center gap-2">
+              <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-brand-500"><polyline points="20 6 9 17 4 12"/></svg>
+              Cash on Delivery (COD) &mdash; Pay when you receive.
             </div>
+          </div>
 
-            {paymentMethod === 'cod' && (
-              <button
-                type="submit"
-                disabled={submitting}
-                className="w-full py-3.5 rounded-xl bg-brand-500 text-white font-semibold hover:bg-brand-600 transition-all disabled:opacity-50"
-              >
-                {submitting ? 'Placing Order...' : `Place Order — $${total.toFixed(2)}`}
-              </button>
-            )}
-          </form>
+          <button
+            type="submit"
+            disabled={submitting}
+            className="w-full bg-brand-500 text-white py-3.5 rounded-full font-semibold hover:bg-brand-600 disabled:opacity-50 flex items-center justify-center gap-2 transition-all shadow-lg shadow-brand-500/25"
+          >
+            {submitting && <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="animate-spin"><path d="M21 12a9 9 0 11-6.219-8.56"/></svg>}
+            Place Order &mdash; ${total.toFixed(2)}
+          </button>
+        </form>
 
-          <div className="border border-zinc-200 rounded-2xl p-6 bg-white h-fit">
-            <h3 className="text-sm font-semibold text-zinc-800 mb-4">Order Summary</h3>
-            <div className="space-y-3">
-              {items.map(item => (
-                <div key={item._id} className="flex gap-3">
-                  <div className="w-14 h-14 rounded-lg overflow-hidden bg-zinc-100 shrink-0">
-                    <img src={item.image} alt="" className="w-full h-full object-cover" />
+        <div className="md:col-span-2">
+          <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+            <h3 className="font-semibold text-dark mb-4">Order Summary</h3>
+            <div className="space-y-3 mb-4">
+              {items.map((item) => (
+                <div key={item.slug} className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gray-50 rounded-lg overflow-hidden shrink-0">
+                    <img src={item.image || '/placeholder.svg'} alt={item.title} className="w-full h-full object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-zinc-800 truncate">{item.name}</p>
-                    <p className="text-xs text-zinc-500">{item.color} / {item.size} x{item.quantity}</p>
+                    <p className="text-sm text-dark truncate">{item.title}</p>
+                    <p className="text-xs text-gray-400">x{item.quantity}</p>
                   </div>
-                  <span className="text-sm text-zinc-800 font-medium">${(item.price * item.quantity).toFixed(2)}</span>
+                  <p className="text-sm font-semibold text-dark">${(item.price * item.quantity).toFixed(2)}</p>
                 </div>
               ))}
-              <div className="border-t border-zinc-200 pt-3 space-y-1.5">
-                <div className="flex justify-between text-sm text-zinc-500">
-                  <span>Subtotal</span>
-                  <span>${subtotal.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between text-sm text-zinc-500">
-                  <span>Shipping</span>
-                  <span className={shipping === 0 ? 'text-green-600' : ''}>
-                    {shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}
-                  </span>
-                </div>
-                <div className="flex justify-between text-base font-semibold text-zinc-800 pt-1">
-                  <span>Total</span>
-                  <span>${total.toFixed(2)}</span>
-                </div>
+            </div>
+            <div className="border-t pt-3 space-y-1 text-sm">
+              <div className="flex justify-between text-gray-500">
+                <span>Subtotal</span>
+                <span>${subtotal.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between text-gray-500">
+                <span>Shipping</span>
+                <span>{shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}</span>
+              </div>
+              <div className="flex justify-between font-bold text-dark text-base border-t pt-2">
+                <span>Total</span>
+                <span>${total.toFixed(2)}</span>
               </div>
             </div>
           </div>

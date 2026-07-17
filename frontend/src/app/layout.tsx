@@ -8,18 +8,18 @@ import Footer from '@/components/Footer';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
-  title: 'Kindloom — Print on Demand Store',
-  description: 'Premium custom apparel and accessories. Design your own T-shirts, hoodies, caps, and more.',
+  title: 'Kindloom — Custom T-Shirt & Print-on-Demand Store',
+  description: 'Design your own custom t-shirts, hoodies, and more. Upload your logo, choose colors, and get high-quality printing delivered to your door.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans`}>
+      <body className={`${inter.variable} font-sans antialiased`}>
         <Providers>
-          <div className="flex flex-col min-h-screen">
+          <div className="flex flex-col min-h-screen bg-white">
             <Header />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 bg-white">{children}</main>
             <Footer />
           </div>
         </Providers>
